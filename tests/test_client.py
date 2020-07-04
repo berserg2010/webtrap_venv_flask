@@ -8,11 +8,5 @@ def test_config():
     assert create_app({"TESTING": True}).testing
 
 
-def test_get_index(client):
-    response = client.get('/')
-
-    assert response.status_code == 200
-
-    response = client.get('/some-url')
-
-    assert response.status_code == 200
+def test_get_index(get_url):
+    assert get_url.status_code == 200
