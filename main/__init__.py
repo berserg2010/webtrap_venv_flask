@@ -1,21 +1,19 @@
-from flask import Flask, request, make_response
+from flask import Flask, make_response
 
+from .settings import settings
 from .logger import log
 from .process import process1, process2, process3
 
-PORT = 8001
 
+def create_app(config_name):
 
-def create_app(test_config=None):
     app = Flask(__name__)
 
-    app.config.from_pyfile("settings.py")
+    app.config.from_object(settings[config_name])
+    settings[config_name].init_app(app)
 
-    if test_config is not None:
-        app.config.update(test_config)
-
-    @app.route('/', defaults={'path': ''})
-    @app.route('/<path:path>')
+    @app.route("/", defaults={"path": ""})
+    @app.route("/<path:path>")
     @log
     def query(path):
 
@@ -27,8 +25,5 @@ def create_app(test_config=None):
         response.status_code = 200
 
         return response
-
-    # app.add_url_rule("/", "query", query,  defaults={'path': ''})
-    # app.add_url_rule("/<path:path>", "query", query)
 
     return app

@@ -1,3 +1,4 @@
-FLASK_APP=main
+FLASK_APP=manage
 FLASK_ENV=development
-FLASK_DEBUG=1
+
+FLASK_RUN_PORT=${PORT:-8888}
