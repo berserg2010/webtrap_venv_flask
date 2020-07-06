@@ -1,23 +1,20 @@
-from flask import request
-
-from .logger import logger, log
+from .logger import log_info, log_error_all_url, log_error_notawaiting
 
 
-@log
+@log_info
+@log_error_all_url
 def process1():
     pass
 
 
-@log
+@log_info
+@log_error_all_url
+@log_error_notawaiting
 def process2():
-
-    parameters = dict(request.args)
-
-    if parameters.get("notawaiting") == "1":
-        logger.error(f"Invalid parameters: {parameters}")
     pass
 
 
-@log
+@log_info
+@log_error_all_url
 def process3():
     pass
